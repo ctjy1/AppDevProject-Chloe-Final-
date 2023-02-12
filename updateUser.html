@@ -1,0 +1,66 @@
+{% extends "base_admin.html" %}
+{% block title %}RentCycle - Update Account{% endblock %}
+
+{% block content %}
+{% from "includes/_formHelper.html" import render_field %}
+
+<style>
+body{
+  background-color: black;
+  color: #fff;
+}
+h1{
+    text-align: center;
+}
+p{
+    text-align: center;
+}
+.signup-form{
+    padding-bottom: 50px;
+}
+form {
+    margin: auto;
+    width: 60%;
+}
+.form-group{
+    justify-content: center;
+    align-items: center
+    width: 60%;
+}
+.btn-primary{
+    background-color: #f73471;
+    border-color: #f73471;
+    color: white;
+}
+.text-center{
+    padding-top: 15px;
+}
+.text-center a{
+    color: #f73471;
+}
+</style>
+
+<body>
+<h1 class="display-4">Update Account</h1>
+
+<form method="POST" action="">
+  <div class="form-group">
+    {{ render_field(form.firstname, class="form-control") }} {{ render_field(form.lastname, class="form-control") }}
+  </div>
+  <div class="form-group">
+    {{ render_field(form.username, class="form-control") }}
+  </div>
+  <div class="form-group">
+    {{ render_field(form.email, class="form-control") }}
+  </div>
+  <div id="prof">
+  <div class="form-group">
+    {{ render_field(form.phone, class="form-control") }}
+  </div>
+    </div>
+
+  <br>
+  <input type="submit" value="Update Account" class="btn btn-primary"/>
+</form>
+</body>
+{% endblock %}
