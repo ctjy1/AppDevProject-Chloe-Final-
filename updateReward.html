@@ -1,0 +1,41 @@
+{% extends "base_admin.html" %}
+{% block title %}RentCycle - Update Reward{% endblock %}
+
+{% block head %}
+{{ super() }}
+{% endblock %}
+
+{% block content %}
+{% from "includes/_formHelper.html" import render_field %}
+<link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/RewardForm.css')}}">
+<body>
+<div class="container con">
+    <h1 class="display-4">Update Reward</h1>
+    <form method="POST" action="">
+        <div class="row">
+            <div class="column">
+                <div class="form-group name">
+                {{ render_field(form.reward_name, class="form-control", placeholder="Please enter the reward name") }}
+                </div>
+                <div class="form-group name">
+                {{ render_field(form.discount, class="form-control", placeholder="Example: 10 for 10% off", required=False) }}
+                </div>
+                <div class="form-group">
+                    {{ render_field(form.points_required, class="form-control", placeholder="Please enter the required number of points", required=False) }}
+                </div>
+                <div class="form-group">
+                    {{ render_field(form.reward_expiry, class="form-control datepicker", required=False) }}
+                </div>
+                <div id="prof">
+                    <div class="form-group">
+                        {{ render_field(form.remarks, class="form-control") }}
+                    </div>
+                </div>
+                <input type="submit" value="Submit" class="btn btn-primary" id="submitButton">
+            </div>
+        </div>
+    </form>
+</div>
+</body>
+
+{% endblock %}
