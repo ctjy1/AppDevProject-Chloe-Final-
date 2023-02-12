@@ -1,0 +1,32 @@
+<link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/_chatbot.css')}}">
+<body>
+<div class="container">
+    <div class="chatbox">
+        <div class="chatbox__support">
+            <div class="chatbox__header">
+                <div class="chatbox__image--header">
+                    <img src="{{url_for('static', filename='images/chatbox-icon.svg')}}"
+        alt="user" width="70px">
+                </div>
+                <div class="chatbox__content--header">
+                    <h4 id="chatbox__heading--header">Chat support</h4>
+                    <p id="chatbox__description--header">Hi. My name is Sam. How can I help you?</p>
+                </div>
+            </div>
+            <div class="chatbox__messages">
+                <div></div>
+            </div>
+            <div class="chatbox__footer">
+                <input type="text" placeholder="Write a message...">
+                <button class="chatbox__send--footer send__button">Send</button>
+            </div>
+        </div>
+        <div class="chatbox__button">
+            <button id="chatbot-btn"> <img src="{{url_for('static', filename='images/chatbox-icon.svg')}}"
+        alt="user"></button>
+        </div>
+    </div>
+</div>
+
+    <script src="{{ url_for('static', filename='js/app.js')}}"></script>
+</body>

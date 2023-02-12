@@ -1,0 +1,31 @@
+<link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/_navbar_admin.css')}}">
+    <nav>
+        <a href="/home_admin" id="logo">Rent <span>Cycle</span> </a>
+        <ul>
+         <li><a href="/retrieveUsers">Retrieve Users</a></li>
+        <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle dt" href="#" role="button" data-bs-toggle="dropdown">Manage Product Details</a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="/createProduct">Create Product Details</a></li>
+                <li><a class="dropdown-item" href="/retrieveProducts">Retrieve Product Details</a></li>
+                <li><a class="dropdown-item" href="/admin_viewProducts">View Products</a></li>
+              </ul>
+            </li>
+            <li><a href="/retrieveRental">Retrieve Rental</a></li>
+       <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle dt" href="#" role="button" data-bs-toggle="dropdown">Manage Rewards</a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="/createReward">Create Rewards</a></li>
+                <li><a class="dropdown-item" href="/retrieveRewards">Retrieve Rewards</a></li>
+              </ul>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle dt" href="#" role="button" data-bs-toggle="dropdown">Manage Damaged Records</a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="/createBikes">Create Damaged Records</a></li>
+                <li><a class="dropdown-item" href="/retrieveBikes">Retrieve Damaged Records</a></li>
+              </ul>
+            </li>
+        </ul>
+      <button><a href="/">Log Out</a></button>
+    </nav>
