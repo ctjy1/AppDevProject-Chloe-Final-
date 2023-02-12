@@ -1,0 +1,145 @@
+{% extends "base_admin.html" %}
+{% block title %}RentCycle - Rental Information{% endblock %}
+
+{% block content %}
+{% if 'rental_created' in session %}   <!-- Feedback After a Rental is Created -->
+    <div class="alert alert-success alert-dismissible">
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+        {{ session.pop('rental_created', None) }} was created.
+    </div>
+{% elif 'rental_updated' in session %}   <!-- Feedback After a Rental is Updated -->
+    <div class="alert alert-warning alert-dismissible">
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+        {{ session.pop('rental_updated', None) }} was updated.
+    </div>
+{% elif 'rental_deleted' in session %}   <!-- Feedback After a Rental is Deleted -->
+    <div class="alert alert-danger alert-dismissible">
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+        {{ session.pop('rental_deleted', None) }} was deleted.
+    </div>
+{% endif %}
+
+<body>
+
+<link rel="stylesheet" href="{{url_for('static', filename='css/retrieveRental.css')}}">
+<script src="{{url_for('static', filename='js/retrieveRental.js')}}"></script>
+
+<h1 class="display-4">Rental Information</h1>
+<div>
+    {% if count == 0 %}
+    <p>There are no customers.</p>
+    {% elif count == 1 %}
+    <p>There is 1 customer.</p>
+    {% else %}
+    <p>There are {{ count }} customers.</p>
+    {% endif %}
+</div>
+
+<input type="text" id="searchInput" onkeyup="searchFunction()" placeholder="Search for customers..." title="Type in a name">
+
+<a href="/pieChart" id="chartLink">See chart</a>
+
+<div>
+    <table class="table table-hover table-dark" id="myTable">
+        <thead>
+            <tr class="table-info">
+                <th onclick="sortTable(0)">Customer ID <i class="fa-solid fa-sort"></i></th>
+                <th onclick="sortTable(1)">Full Name <i class="fa-solid fa-sort"></i></th>
+                <th>Phone No.</th>
+                <th onclick="sortTable(3)">Email <i class="fa-solid fa-sort"></i></th>
+                <th onclick="sortTable(4)">Date <i class="fa-solid fa-sort"></i></th>
+                <th>Time-In</th>
+                <th>Time-Out</th>
+                <th onclick="sortTable(7)">Bicycle <i class="fa-solid fa-sort"></i></th>
+                <th>Total Price</th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for customer in rental_list %}
+            <tr>
+                <td>{{ customer.get_customer_id() }}</td>
+                <td>{{ customer.get_full_name() }}</td>
+                <td>{{ customer.get_phone_no() }}</td>
+                <td>{{ customer.get_email() }}</td>
+                <td>{{ customer.get_date() }}</td>
+                <td>{{ customer.get_time_in() }}</td>
+                <td>{{ customer.get_time_out() }}</td>
+                <td>{{ customer.get_bicycle() }}</td>
+
+                <!-- Calculate Price -->
+                {% if customer.get_bicycle() == "RB" %}
+                <td>${{ customer.get_duration() * 9 }}</td>
+                {% elif customer.get_bicycle() == "MB" %}
+                <td>${{ customer.get_duration() * 10 }}</td>
+                {% elif customer.get_bicycle() == "FB" %}
+                <td>${{ customer.get_duration() * 10 }}</td>
+                {% elif customer.get_bicycle() == "HB" %}
+                <td>${{ customer.get_duration() * 11 }}</td>
+                {% endif %}
+                <!-- Calculate Price -->
+
+                <td><a href="/updateRental/{{customer.get_customer_id()}}" class="btn btn-outline-warning btn-lg">Update</a></td>
+                <td>
+                    <form action="{{url_for('delete_rental', id=customer.get_customer_id())}}" method="POST">
+                    <!-- Button to Open the Modal -->
+                    <button type="button" class="btn btn-outline-danger btn-lg" data-bs-toggle="modal" data-bs-target="#myModal_{{customer.get_customer_id()}}">
+                      Delete
+                    </button>
+
+                    <!-- The Modal -->
+                    <div class="modal fade" id="myModal_{{customer.get_customer_id()}}">
+                      <div class="modal-dialog" style="border: 5px solid #f73471; border-radius: 10px;">
+                        <div class="modal-content">
+
+                          <!-- Modal Header -->
+                          <div class="modal-header">
+                            <h4 class="modal-title">Delete Confirmation</h4>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                          </div>
+
+                          <!-- Modal body -->
+                          <div class="modal-body">
+                            Are you sure you want to delete {{customer.get_full_name()}}?
+                          </div>
+
+                          <!-- Modal footer -->
+                          <div class="modal-footer">
+                              <input type="submit" value="Delete" class="btn btn-danger">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                          </div>
+
+                        </div>
+                      </div>
+                    </div>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+ <script>
+function myFunction() {
+  var input, filter, table, tr, td, i, txtValue;
+  input = document.getElementById("searchbar");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("myTable");
+  tr = table.getElementsByTagName("tr");
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[1];
+    if (td) {
+      txtValue = td.textContent || td.innerText;
+      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }
+  }
+}
+</script>
+
+</body>
+{% endblock %}

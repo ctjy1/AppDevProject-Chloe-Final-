@@ -1,0 +1,165 @@
+{% extends "base.html" %}   <!-- create home.html template by extending the base.html template -->
+{% block title %}RentCycle - Home{% endblock %}
+
+{% block head %}
+{{ super() }}
+{% endblock %}
+
+{% block content %}
+{% from "includes/_formHelper.html" import render_field %}
+
+{% if 'password_reset' in session %}   <!-- Feedback After a Rental is Updated -->
+    <div class="alert alert-success alert-dismissible">
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+        {{ session.pop('password_reset', None) }}
+    </div>
+{% endif %}
+
+<link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/home.css')}}">
+  <body>
+
+    <div class="banner_section layout_padding">
+         <div id="main_slider" class="carousel slide" data-ride="carousel">
+            <div class="carousel-inner">
+               <div class="carousel-item active">
+
+                  <div class="container">
+                     <div class="row">
+                        <div class="col-md-6">
+                           <h1 class="banner_taital">RentCycle</h1>
+                           <p class="banner_text">We know you have many choices when renting online. At RentCycle, our goal is to offer
+                              an incredible shopping experience for you supported by our family of cyclists.</p>
+                           <div class="btn_main">
+                              <div class="contact_bt"><a href="#">View More</a></div>
+                           </div>
+                        </div>
+                        <div class="col-md-6">
+                           <div class="image_1"><img src="{{url_for('static', filename='images/bike1.jpg')}}"></div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+               <div class="carousel-item">
+                  <div class="container">
+                     <div class="row">
+                        <div class="col-md-6">
+                           <h1 class="banner_taital">RentCycle</h1>
+                           <p class="banner_text">When you buy a bicycle from us, we want to make sure you get the most out of your
+                              investment. Our expert sales staff are on hand to give you all the advice you need to help you to get into a safe and
+                              fulfilling cycling lifestyle.</p>
+                           <div class="btn_main">
+                              <div class="contact_bt"><a href="#">Contact Us</a></div>
+                           </div>
+                        </div>
+                        <div class="col-md-6">
+                           <div class="image_1"><img src="{{url_for('static', filename='images/bike2.jpg')}}"></div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+      <!-- banner section end -->
+      <!-- about section start -->
+      <div class="about_section layout_padding">
+         <div class="container">
+            <div class="about_section_2">
+               <div class="row">
+                  <div class="col-md-6">
+                     <div class="image_2"><img src="{{url_for('static', filename='images/A.jpg')}}"></div>
+                  </div>
+                  <div class="col-md-6">
+                     <h1 class="about_taital">About Us</h1>
+                     <p class="about_text">We are happy that you are here at RentCycle. Our primary objective is to help more and more people engage
+                        in bicycles given that they’re functional, eco friendly, awesome to ride, and offer great adventure! From full-suspension bikes to
+                        long lasting city commuters to carbon road bicycles, these are all the things that we love. </p>
+                     <div class="readmore_bt"><a href="#">Read More</a></div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+      <!-- about section end -->
+      <!--  design section start -->
+      <div class="design_section layout_padding">
+         <div id="my_slider" class="carousel slide" data-ride="carousel">
+            <div class="carousel-inner">
+               <div class="carousel-item active">
+                  <div class="container">
+                     <h1 class="design_taital">Our Bikes</h1>
+                     <p class="design_text">There are many variations of bicycles you can rent from our website. Feel free to check it out!</p>
+                     <div class="design_section_2">
+                        <div class="row">
+                           <div class="col-md-4">
+                              <div class="box_main">
+                                 <p class="chair_text">Mountain Bike</p>
+                                 <div class="image_3" ><img src="{{url_for('static', filename='images/mountainbike.jpg')}}"></div>
+                                 <p class="chair_text">$10/hour</p>
+                                 <div class="buy_bt"><a href="#">Rent Now</a></div>
+                              </div>
+                           </div>
+                           <div class="col-md-4">
+                              <div class="box_main">
+                                 <p class="chair_text">Road Bike</p>
+                                 <div class="image_3" ><img src="{{url_for('static', filename='images/roadbike.jpg')}}"></div>
+                                 <p class="chair_text">$9/hour</p>
+                                 <div class="buy_bt"><a href="#">Rent Now</a></div>
+                              </div>
+                           </div>
+                           <div class="col-md-4">
+                              <div class="box_main">
+                                 <p class="chair_text">Folding Bike</p>
+                                 <div class="image_3"><img src="{{url_for('static', filename='images/foldingbike.jpg')}}"></div>
+                                 <p class="chair_text">$10/hour</p>
+                                 <div class="buy_bt"><a href="/customer_viewProducts">Rent Now</a></div>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+
+
+         </div>
+         <div class="read-bt_container">
+            <div class="read_bt"><a href="/customer_viewProducts">View More</a></div>
+         </div>
+      </div>
+      </div>
+      <!--  design section end -->
+
+    <div class="newsletter_section layout_padding">
+         <div class="container">
+            <div class="row">
+               <div class="col-md-6">
+                  <div class="imgage_6"><img src="{{url_for('static', filename='images/new.png')}}"></div>
+               </div>
+               <div class="col-md-6">
+                  <h1 class="newsletter_taital">Subscribe Newsletter</h1>
+                  <input type="text" class="email_text" placeholder="Enter Your Email" name="Enter Your Email">
+                  <div class="subscribe_bt"><a href="#">Subscribe Now</a></div>
+               </div>
+            </div>
+         </div>
+      </div>
+
+
+    </body>
+      <!-- copyright section end -->
+      <!-- Javascript files-->
+      <script src="js/jquery.min.js"></script>
+      <script src="js/popper.min.js"></script>
+      <script src="js/bootstrap.bundle.min.js"></script>
+      <script src="js/jquery-3.0.0.min.js"></script>
+      <script src="js/plugin.js"></script>
+      <!-- sidebar -->
+      <script src="js/jquery.mCustomScrollbar.concat.min.js"></script>
+      <script src="js/custom.js"></script>
+      <!-- javascript -->
+      <script src="js/owl.carousel.js"></script>
+      <script src="https:cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.js"></script>
+      <script src="https://kit.fontawesome.com/c515ddab10.js" crossorigin="anonymous"></script>
+
+
+  {% endblock %}

@@ -1,0 +1,39 @@
+* {
+    font-family: serif;
+}
+
+body {
+    background-color: black;
+}
+
+h1 {
+    text-align: center;
+    color: white;
+    margin-top: 50px;
+}
+
+p {
+    text-align: center;
+    color: white;
+}
+
+.table {
+    margin-top: 50px;
+}
+#searchInput {
+  background-image: url('../img/searchicon.png');
+  background-size: 25px;
+  background-position: 10px 12px;
+  background-repeat: no-repeat;
+  background-color: rgba(255,255,255,0.2);
+  width: 25%;
+  font-size: 16px;
+  padding: 12px 20px 12px 40px;
+  border: 1px solid #ddd;
+  border-radius: 20px;
+  color: #ddd;
+}
+
+::placeholder {
+    color: #ddd;
+}

@@ -1,0 +1,63 @@
+{% extends "base_logout.html" %}
+{% block title %}RentCycle - Rental Success{% endblock %}
+
+{% block content %}
+<style>
+* {
+    font-family: serif;
+}
+
+body {
+    background: black;
+}
+
+.box {
+    width: 500px;
+    background: #fff;
+    border-radius: 6px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 30px;
+    margin-bottom: 100px;
+    text-align: center;
+    padding: 0 30px 30px;
+}
+
+.box i {
+    font-size: 90px;
+    margin-top: 10px;
+    color: #6fd649;
+}
+
+.box h2 {
+    font-size: 38px;
+    margin: 20px 0 10px;
+}
+
+.box .okButton {
+    text-decoration: none;
+    display:inline-block;
+    margin-top: 30px;
+    width: 100%;
+    padding: 10px 155px;
+    background: #6fd649;
+    color: #fff;
+    border: 0;
+    outline: none;
+    font-size: 18px;
+    border-radius: 4px;
+    cursor: pointer;
+    box-shadow: 0 5px 5px rgba(0, 0, 0, 0.2);
+}
+</style>
+
+<body>
+    <div class="box">
+        <i class="fa-solid fa-envelope-circle-check"></i>
+        <h2>Thank You!</h2>
+        <p>A confirmation email has been sent, please check your email to confirm your rental.</p>
+        <p>Go to email: <a href="https://mailtrap.io/" target="_blank">Check Email</a></p>
+        <a href="/logout" class="okButton">OK</a>
+    </div>
+</body>
+{% endblock %}

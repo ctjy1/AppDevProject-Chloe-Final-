@@ -1,0 +1,38 @@
+{% extends "base_admin.html" %}
+{% block title %}RentCycle - Damaged Bicycle Entries{% endblock %}
+
+{% block head %}
+{{ super() }}
+{% endblock %}
+
+{% block content %}
+{% from "includes/_formHelper.html" import render_field %}
+<link rel="stylesheet" href="{{url_for('static', filename='css/rewardForm.css')}}">
+<body>
+    <div class="container">
+        <h1 class="display-4">Damaged Bicycle Entries</h1>
+        <form method="POST" action="">
+            <div class="row">
+                <div class="column">
+                    <div class="form-group">
+                        {{ render_field(form.Bike_ID, class="form-control", placeholder="5 digits") }}
+                    </div>
+                </div>
+                <div class="column">
+                    <div class="form-group">
+                        {{ render_field(form.date, class="form-control") }}
+                    </div>
+                </div>
+                <div class="form-group name">
+                    {{ render_field(form.payment, class="form-control", placeholder="Please enter penalty amount") }}
+                </div>
+                <div class="form-group name">
+                    {{ render_field(form.damage, class="form-control", placeholder="Please enter damage to bike") }}
+                </div>
+
+                <input type="submit" value="Submit" class="btn btn-primary" id="submitButton">
+            </div>
+        </form>
+    </div>
+</body>
+{% endblock %}

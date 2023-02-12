@@ -1,0 +1,165 @@
+* {
+    font-family: serif;
+    text-color:white;
+}
+
+body {
+    background-color: black;
+}
+
+h1 , h2, h3{
+    text-align: center;
+    margin-top: 50px;
+}
+h1, h2 {
+    color: white;
+}
+
+h3 {
+    color:red;
+}
+
+p {
+    text-align: center;
+    color: white;
+}
+
+tbody {
+    color: white;
+    background-color: black;
+}
+
+thead {
+    color: white;
+    background-color: black;
+}
+
+
+
+td {
+    color: white !important;
+}
+
+tr {
+    background-color: black;
+}
+
+.modal-content {
+    background-color: black;
+}
+
+.modal-title .modal-body {
+    color: white;
+}
+
+.table {
+    margin-top: 50px;
+}
+
+h1 {
+    text-align: center;
+    color: white;
+    margin-top: 50px;
+}
+
+.table {
+    margin-top: 10px;
+    margin-bottom: 100px;
+}
+.modal-title{
+    color: #fff;
+}
+.modal-content {
+    background-color: black;;
+}
+i:active {
+    color: #f73471;
+}
+.search-input {
+  background-image: url('../images/searchicon.png');
+  background-size: 25px;
+  background-position: 10px 12px;
+  background-repeat: no-repeat;
+  background-color: rgba(255,255,255,0.2);
+  width: 25%;
+  font-size: 16px;
+  padding: 12px 20px 12px 40px;
+  border: 1px solid #ddd;
+  border-radius: 20px;
+  color: #ddd;
+}
+
+::placeholder {
+    color: #ddd;
+}
+
+th {
+    cursor: pointer;
+}
+
+i:active {
+    color: #f73471;
+}
+
+.payment-button {
+  text-decoration: none;
+  color: rgba(0,0,0,.6);
+  text-transform: uppercase;
+  width: 220px;
+  height: 50px;
+  margin
+  color: #f73471;
+}
+
+.payment-div {
+  margin: 0 auto;
+  text-align: center;
+  transition: all ease .5s;
+  letter-spacing: 3px;
+  position: relative;
+  left:-15px;
+  color: white;
+}
+
+.payment-div:hover {
+  left:65px;
+  color: #f73471;
+}
+
+.payment-div:before {
+  content: "→";
+  transition: all ease .5s;
+  position:relative;
+/*   left:-5px; */
+  opacity:0;
+  color: #f73471;
+}
+
+.payment-div:hover:before {
+  content: "→";
+  transition: all ease .5s;
+  left:0px;
+  opacity:1;
+  color: #f73471;
+}
+
+.payment-div:after {
+  content: "";
+  border-bottom: 2px solid #f73471;
+  width: 50px;
+  height: 50px;
+  display: inline-block;
+  text-align: center;
+  position: relative;
+  top: 15px;
+  left:-139px;
+  transition: all ease .5s;
+  color: #f73471;
+}
+
+.payment-div:hover:after {
+  width: 162px;
+  transition: all ease .5s;
+  left:-162px;
+  color: #f73471;
+}

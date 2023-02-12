@@ -1,0 +1,50 @@
+{% extends "base_logout.html" %}
+{% block title %}RentCycle - Bicycle Rental{% endblock %}
+
+{% block content %}
+{% from "includes/_formHelper.html" import render_field %}
+
+<body>
+
+<link rel="stylesheet" href="{{url_for('static', filename='css/rentalForm.css')}}">
+
+    <div class="container2">
+        <h1 class="display-4">Bicycle Rental Form</h1>
+        <form method="POST" action="">
+            <div class="row">
+                <div class="form-group name">
+                    {{ render_field(form.full_name, class="form-control", placeholder="Please enter your full name") }}
+                </div>
+                <div class="column">
+                    <div class="form-group">
+                        {{ render_field(form.phone_no, class="form-control", placeholder="8 digits") }}
+                    </div>
+                    <div class="form-group">
+                        {{ render_field(form.date, class="form-control datepicker") }}
+                    </div>
+                    <div class="row">
+                        <div class="form-group column">
+                            {{ render_field(form.time_in, class="form-control") }}
+                        </div>
+                        <div class="form-group column">
+                            {{ render_field(form.time_out, class="form-control") }}
+                        </div>
+                    </div>
+                </div>
+                <div class="column">
+                    <div class="form-group">
+                        {{ render_field(form.email, class="form-control", placeholder="email@address.com") }}
+                    </div>
+                    <div class="form-group">
+                        {{ render_field(form.bicycle, class="form-control") }}
+                    </div>
+                    <div class="form-group">
+                        {{ render_field(form.duration, class="form-control") }}
+                    </div>
+                </div>
+                <input type="submit" value="Complete Rental" class="btn btn-primary" id="completeButton">
+            </div>
+        </form>
+    </div>
+</body>
+{% endblock %}

@@ -1,0 +1,189 @@
+{% extends "base_admin.html" %}
+{% block title %}RentCycle - Retrieve Accounts{% endblock %}
+
+{% block head %}
+{{ super() }}
+{% endblock %}
+
+{% block content %}
+{% from "includes/_formHelper.html" import render_field %}
+
+{% if 'user_updated' in session %}   <!-- Feedback After a Rental is Updated -->
+    <div class="alert alert-warning alert-dismissible">
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+        {{ session.pop('user_updated', None) }} was updated.
+    </div>
+{% elif 'user_deleted' in session %}   <!-- Feedback After a Rental is Deleted -->
+    <div class="alert alert-danger alert-dismissible">
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+        {{ session.pop('user_deleted', None) }} was deleted.
+    </div>
+{% endif %}
+
+<body>
+
+<link rel="stylesheet" href="{{url_for('static', filename='css/retrieveRental.css')}}">
+<script src="{{url_for('static', filename='js/retrieveRental.js')}}"></script>
+
+<h1 class="display-4">Retrieve Accounts</h1>
+<div>
+  {% if count == 0 %}
+  <p>There are no users.</p>
+  {% elif count == 1 %}
+  <p>There is 1 user.</p>
+  {% else %}
+  <p>There are {{ count }} users.</p>
+  {% endif %}
+</div>
+
+<input type="text" id="searchInput" onkeyup="searchFunction()" placeholder="Search for customers..." title="Type in a name">
+
+<<div>
+  <table class="table table-hover table-dark" id="myTable">
+    <thead>
+      <tr class="table-info">
+        <th>User ID</th>
+        <th>Name</th>
+        <th>Username</th>
+        <th>Email</th>
+        <th>Mobile Number</th>
+        <th></th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+    {% for user in users_list %}
+     <tr>
+        <td>{{ user.get_user_id() }}</td>
+        <td>{{ user.get_firstname() }} {{ user.get_lastname() }}</td>
+         <td>{{ user.get_username() }}</td>
+        <td>{{ user.get_email() }}</td>
+        <td>{{ user.get_phone() }}</td>
+
+        <td><a href="/updateUser/{{user.get_email()}}" class="btn btn-outline-warning btn-lg">Update</a></td>
+        <td>
+  <form action="{{url_for('delete_user', email=user.get_email())}}" method="POST">
+
+                    <!-- Button to Open the Modal -->
+                    <button type="button" class="btn btn-outline-danger btn-lg" data-bs-toggle="modal" data-bs-target="#myModal_{{user.get_username()}}">
+                      Delete
+                    </button>
+
+                    <!-- The Modal -->
+                    <div class="modal fade" id="myModal_{{user.get_username()}}">
+                      <div class="modal-dialog" style="border: 5px solid #f73471; border-radius: 10px;">
+                        <div class="modal-content">
+
+                          <!-- Modal Header -->
+                          <div class="modal-header">
+                            <h4 class="modal-title">Delete Confirmation</h4>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                          </div>
+
+                          <!-- Modal body -->
+                          <div class="modal-body">
+                           Are you sure you want to delete {{ user.get_firstname() }} {{ user.get_lastname() }} {{user.get_username()}}?
+                          </div>
+
+                          <!-- Modal footer -->
+                          <div class="modal-footer">
+                              <input type="submit" value="Delete" class="btn btn-danger">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                          </div>
+
+                        </div>
+                      </div>
+                    </div>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+ <script>
+function searchFunction() {
+  // Declare variables
+  var input, filter, table, tr, td, i, txtValue;
+  input = document.getElementById("searchInput");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("myTable");
+  tr = table.getElementsByTagName("tr");
+
+  // Loop through all table rows, and hide those who don't match the search query
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[1];
+    if (td) {
+      txtValue = td.textContent || td.innerText;
+      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }
+  }
+}
+
+function sortTable(n) {
+  var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+  table = document.getElementById("myTable");
+  switching = true;
+  //Set the sorting direction to ascending:
+  dir = "asc";
+  /*Make a loop that will continue until
+  no switching has been done:*/
+  while (switching) {
+    //start by saying: no switching is done:
+    switching = false;
+    rows = table.rows;
+    /*Loop through all table rows (except the
+    first, which contains table headers):*/
+    for (i = 1; i < (rows.length - 1); i++) {
+      //start by saying there should be no switching:
+      shouldSwitch = false;
+      /*Get the two elements you want to compare,
+      one from current row and one from the next:*/
+      x = rows[i].getElementsByTagName("TD")[n];
+      y = rows[i + 1].getElementsByTagName("TD")[n];
+      /*check if the two rows should switch place,
+      based on the direction, asc or desc:*/
+      if (dir == "asc") {
+        if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+          //if so, mark as a switch and break the loop:
+          shouldSwitch= true;
+          break;
+        }
+      } else if (dir == "desc") {
+        if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+          //if so, mark as a switch and break the loop:
+          shouldSwitch = true;
+          break;
+        }
+      }
+    }
+    if (shouldSwitch) {
+      /*If a switch has been marked, make the switch
+      and mark that a switch has been done:*/
+      rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+      switching = true;
+      //Each time a switch is done, increase this count by 1:
+      switchcount ++;
+    } else {
+      /*If no switching has been done AND the direction is "asc",
+      set the direction to "desc" and run the while loop again.*/
+      if (switchcount == 0 && dir == "asc") {
+        dir = "desc";
+        switching = true;
+      }
+    }
+  }
+}
+
+</script>
+
+
+
+
+
+</body>
+{% endblock %}

@@ -1,0 +1,44 @@
+* {
+    font-family: serif;
+    text-color:white;
+}
+
+body {
+    background-color: black;
+}
+
+h1 {
+    text-align: center;
+    color: white;
+    margin-top: 50px;
+}
+
+p {
+    text-align: center;
+    color: white;
+}
+.viewpdts{
+    padding-bottom: 60px;
+}
+thead, tbody {
+    color: #f73471;
+    border-color: #f73471;
+    font-size: 20px;
+}
+
+td {
+    color: white !important;
+}
+
+.view_product_words {
+    font-size: 20px;
+}
+
+.headerproducts {
+    font-size: 30px;
+}
+.btn-warning{
+    padding: 20px 50px;
+    font-size: 20px;
+}
+

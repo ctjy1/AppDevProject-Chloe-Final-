@@ -1,0 +1,57 @@
+* {
+    font-family: serif;
+    text-color:white;
+}
+
+body {
+    background-color: black;
+}
+
+h1 , h2, h3{
+    text-align: center;
+    margin-top: 50px;
+}
+h1, h2 {
+    color: white;
+}
+
+h3 {
+    color:red;
+}
+
+p {
+    text-align: center;
+    color: white;
+}
+
+tbody {
+    color: white;
+    background-color: black;
+}
+
+thead {
+    color: white;
+    background-color: black;
+
+}
+
+td {
+    color: white !important;
+}
+
+tr {
+    background-color: black;
+}
+
+.modal-content {
+    background-color: black;
+}
+
+.modal-title .modal-body {
+    color: white;
+}
+
+.table {
+    margin-top: 50px;
+}
+

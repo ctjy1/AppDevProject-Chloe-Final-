@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+{% block title %}RentCycle - Bicycle Rental{% endblock %}
+
+{% block content %}
+
+<!-- Pie chart to show which bicycle is most frequently rented -->
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>{{ title }}</title>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.min.js'></script>
+    <style>
+        body {
+            background: black;
+            text-align: center;
+        }
+
+        h1 {
+            color: white;
+            margin-top: 30px;
+        }
+
+        canvas {
+            margin-top: 30px;
+        }
+
+        #backLink {
+            text-decoration: none;
+            text-transform: uppercase;
+            background-color: #f73471;
+            color: white;
+            padding: 10px 80px;
+            border-radius: 10px;
+            transition: transform .4s;
+        }
+
+        #backLink:hover {
+            background: #808080;
+            border: 1px solid #808080;
+            transform: scale(1.1);
+        }
+
+        .back {
+            margin-top: 20px;
+            margin-bottom: 100px;
+        }
+
+    </style>
+</head>
+
+<body>
+    <h1>{{ title }}</h1>
+
+    <canvas id="chart" width="600" height="400"></canvas>
+    <script>
+      var pieData = [
+        {% for item, label, colors in set %}
+          {
+            value: {{item}},
+            label: "{{label}}",
+            color : "{{colors}}"
+          },
+        {% endfor %}
+      ];
+
+      var mychart = document.getElementById("chart").getContext("2d");
+      steps = 10
+      max = {{ max }}
+
+      new Chart(document.getElementById("chart").getContext("2d")).Pie(pieData);
+
+    </script>
+
+    <div class="back">
+        <a href="/retrieveRental" id="backLink">Back</a>
+    </div>
+
+</body>
+</html>
+{% endblock %}

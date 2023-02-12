@@ -1,0 +1,91 @@
+* {
+    font-family: serif;
+    margin: 0; padding: 0;
+    box-sizing: border-box;
+    outline: none; border: none;
+    text-decoration: none;
+}
+
+body {
+    background: black;
+    height: 120vh;
+}
+
+h2 {
+    text-align: center;
+    color: #f73471;
+}
+
+p {
+    margin-top: 10px;
+}
+
+.container2 {
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 30px;
+    margin-bottom: 100px;
+    background: #fff;
+    border-radius: 5px;
+    box-shadow: 0 10px 15px rgba(0,0,0,.1);
+    padding: 20px;
+    width: 600px;
+    align-items: center;
+    justify-content: center;
+    text-transform: uppercase;
+}
+
+.container2 form .inputBox {
+    margin-top: 20px;
+}
+
+.container2 form .inputBox span {
+    display: block;
+    color: #999;
+    padding-bottom: 5px;
+}
+
+.container2 form .inputBox input,
+.container2 form .inputBox select {
+    width: 100%;
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px solid rgba(0,0,0,.3);
+    color: #444;
+}
+
+.container2 form .flexbox {
+    display: flex;
+    gap: 15px;
+}
+
+.container2 form .flexbox .inputBox {
+    flex: 1 1 150px;
+}
+
+.container2 form .submit-btn {
+    width: 100%;
+    background-color: #f73471;
+    margin-top: 20px;
+    padding: 10px;
+    font-size: 20px;
+    color: #fff;
+    cursor: pointer;
+    border-radius: 10px;
+    transition: transform .4s;
+    text-decoration: none;
+}
+
+.container2 form .submit-btn:hover {
+    background: #808080;
+    border: 1px solid #808080;
+    transform: scale(1.1);
+}
+
+.cvv-input {
+    height: 58%;
+}
+
+.card img{
+    height: 120px;
+}

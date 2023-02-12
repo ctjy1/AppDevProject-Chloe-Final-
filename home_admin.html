@@ -1,0 +1,16 @@
+{% extends "base_admin.html" %}
+{% block title %}RentCycle - Home (Admin){% endblock %}
+
+{% block head %}
+{{ super() }}
+{% endblock %}
+
+{% block content %}
+{% from "includes/_formHelper.html" import render_field %}
+
+
+<link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/home_admin.css')}}">
+
+<h1 class="display-4">Admin Page</h1>
+
+{% endblock %}

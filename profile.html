@@ -1,0 +1,64 @@
+{% block title %}RentCycle - Profile{% endblock %}
+
+{% block content %}
+{% from "includes/_formHelper.html" import render_field %}
+<link rel="stylesheet" href="{{url_for('static', filename='css/profile.css')}}">
+<body>
+   <nav>
+        <a href="/logout" id="logo"> Rent <span>Cycle</span> </a>
+        <ul>
+            <li><a href="/logout">Home</a></li>
+            <li><a href="#">Products</a></li>
+            <li><a href="/createRental">Rental</a></li>
+            <li><a href="/redeemRewards">Rewards</a></li>
+            <li><a href="#">Contact Us</a></li>
+        </ul>
+       <div class="buttons">
+            <button id="profile"><a href="/profile"><i class="fas fa-user-circle fa-2xl"></i></a></button>
+            <button><a href="/">Log Out</a></button>
+
+       </div>
+
+    </nav>
+
+{% for user in users_list %}
+
+<div class="wrapper">
+    <div class="left">
+        <img src="{{url_for('static', filename='images/profile.png')}}"
+        alt="user" width="100">
+        <h4>{{ user.get_firstname() }} {{ user.get_lastname() }}</h4>
+         <p>@{{ user.get_username() }}</p>
+    </div>
+    <div class="right">
+        <div class="info">
+            <h3>Personal details</h3>
+            <div class="info_data">
+                 <div class="data">
+                    <h4>Email</h4>
+                    <p>{{ user.get_email() }}</p>
+                 </div>
+                 <div class="data">
+                   <h4>Phone</h4>
+                    <p>{{ user.get_phone() }}</p>
+              </div>
+            </div>
+        </div>
+
+      <div class="projects">
+            <h3>Information</h3>
+            <div class="projects_data">
+                 <div class="data">
+                    <h4>Rewards</h4>
+                    <p>{{total_points}} points</p>
+                 </div>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+{% endfor %}
+
+</body>
+{% endblock %}

@@ -1,0 +1,38 @@
+{% extends "base_admin.html" %}
+{% block title %}RentCycle - Update Bikes{% endblock %}
+
+{% block head %}
+{{ super() }}
+{% endblock %}
+
+{% block content %}
+{% from "includes/_formHelper.html" import render_field %}
+<link rel="stylesheet" href="{{url_for('static', filename='css/rentalForm.css')}}">
+<body>
+    <div class="container">
+        <h1 class="display-4">Bicycle Rental Form</h1>
+        <form method="POST" action="">
+            <div class="row">
+                <div class="column">
+                    <div class="form-group">
+                        {{ render_field(form.Bike_ID, class="form-control", placeholder="5 digits") }}
+                    </div>
+                </div>
+                <div class="column">
+                    <div class="form-group">
+                        {{ render_field(form.date, class="form-control") }}
+                    </div>
+                </div>
+                <div class="form-group name">
+                    {{ render_field(form.payment, class="form-control") }}
+                </div>
+                <div class="form-group name">
+                    {{ render_field(form.damage, class="form-control") }}
+                </div>
+
+                <input type="submit" value="Save" class="btn btn-primary" id="completeButton">
+            </div>
+        </form>
+    </div>
+</body>
+{% endblock %}

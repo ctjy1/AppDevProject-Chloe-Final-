@@ -1,0 +1,127 @@
+{% extends "base_logout.html" %}
+{% block title %}RentCycle - Redeem Rewards{% endblock %}
+
+{% block head %}
+{{ super() }}
+{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="{{url_for('static', filename='css/redeemRewards.css')}}">
+
+<body>
+
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+<ul class=flashes>
+    {% for message in messages %}
+    <h3> {{ message }} </h3>
+    {% endfor %}
+</ul>
+{% endif %}
+{% endwith %}
+
+<div class="container">
+    <h2>Your points: {{total_points}}</h2>
+    <a class="payment-button" href="/payment/1"><div class="payment-div"> Pay Without Reward</div></a>
+    <h1 class="display-4">Your Rewards</h1>
+
+    <script src="{{url_for('static', filename='js/retrieveRewards.js')}}"></script>
+    <input type="text" id="searchInput2" class="search-input" onkeyup="searchFunction2()" placeholder="Search for rewards..." title="Type in a name">
+
+    <div class="section">
+        <table class="table table-hover table-dark" id="myTable2">
+            <thead>
+            <tr class="table-info">
+                <th onclick="sortTable(0)">Reward ID <i class="fa-solid fa-sort"></i></th>
+                <th onclick="sortTable(1)">Reward Name <i class="fa-solid fa-sort"></i></th>
+                <th onclick="sortTable(2)">Discount Value<i class="fa-solid fa-sort"></i></th>
+                <th onclick="sortTable(3)">Points Required<i class="fa-solid fa-sort"></i></th>
+                <th onclick="sortTable(4)">Reward Expiry <i class="fa-solid fa-sort"></i></th>
+                <th>Remarks</th>
+                <th></th>
+            <tr>
+            </thead>
+            <tbody>
+            {% for chosen_reward in redemptions_list %}
+            <tr>
+                <td>{{ chosen_reward.get_reward_id() }}</td>
+                <td>{{ chosen_reward.get_name() }}</td>
+                <td>{{ chosen_reward.get_discount() }}</td>
+                <td>{{ chosen_reward.get_points_required() }}</td>
+                <td>{{ chosen_reward.get_reward_expiry() }}</td>
+                <td>{{ chosen_reward.get_remarks() }}</td>
+                <td><a href="/payment/{{chosen_reward.get_reward_id()}}" class="btn btn-outline-warning btn-lg">Use Reward</a></td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+
+    <h1 class="display-4">Redeem Rewards</h1>
+    <script src="{{url_for('static', filename='js/retrieveRewards.js')}}"></script>
+    <input type="text" id="searchInput" class="search-input" onkeyup="searchFunction()" placeholder="Search for rewards..." title="Type in a name">
+
+    <div class="section">
+        <table class="table table-hover table-dark" id="myTable">
+            <thead>
+            <tr class="table-info">
+                <th onclick="sortTable(0)">Reward ID<i class="fa-solid fa-sort"></i></th>
+                <th onclick="sortTable(1)">Reward Name<i class="fa-solid fa-sort"></i></th>
+                <th onclick="sortTable(2)">Discount Value<i class="fa-solid fa-sort"></i></th>
+                <th onclick="sortTable(3)">Points Required<i class="fa-solid fa-sort"></i></th>
+                <th onclick="sortTable(4)">Reward Expiry<i class="fa-solid fa-sort"></i></th>
+                <th>Remarks</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for reward in rewards_list %}
+            <tr>
+                <td>{{ reward.get_reward_id() }}</td>
+                <td>{{ reward.get_name() }}</td>
+                <td>{{ reward.get_discount() }}</td>
+                <td>{{ reward.get_points_required() }}</td>
+                <td>{{ reward.get_reward_expiry() }}</td>
+                <td>{{ reward.get_remarks() }}</td>
+                <td>
+                    <form action="{{url_for('update_customer_reward', id=reward.get_reward_id())}}" method="POST">
+                        <!-- <input type="submit" value="Delete" class="btn btn-danger" onclick="return confirm('Delete reward {{reward.get_name()}}?');">-->
+                        <!-- Button to Open the Modal -->
+                        <button type="button" class="btn btn-outline-danger btn-lg" data-bs-toggle="modal" data-bs-target="#myModal_{{reward.get_reward_id()}}">
+                            Redeem
+                        </button>
+                        <!-- The Modal -->
+                        <div class="modal fade" id="myModal_{{reward.get_reward_id()}}">
+                      <div class="modal-dialog" style="border: 5px solid #f73471; border-radius: 10px;">
+                        <div class="modal-content">
+
+                          <!-- Modal Header -->
+                          <div class="modal-header">
+                            <h4 class="modal-title">Confirm Redemption</h4>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                          </div>
+
+                          <!-- Modal body -->
+                          <div class="modal-body">
+                             Redeem Reward "{{reward.get_name()}}" for {{reward.get_points_required()}}?
+                          </div>
+
+                          <!-- Modal footer -->
+                          <div class="modal-footer">
+                              <input type="submit" value="Redeem" class="btn btn-danger">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                          </div>
+
+                        </div>
+                      </div>
+                    </div>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

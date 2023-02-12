@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block title %}RentCycle - Log In{% endblock %}
+
+{% block head %}
+{{ super() }}
+{% endblock %}
+
+{% block content %}
+{% from "includes/_formHelper.html" import render_field %}
+<link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/login.css')}}">
+
+<div class="signup-form">
+
+		{% with messages = get_flashed_messages() %}
+	  {% if messages %}
+		<ul class=flashes>
+		{% for message in messages %}
+			{{ message }}
+		{% endfor %}
+		</ul>
+	  {% endif %}
+	{% endwith %}
+
+    <form method="POST" action="">
+		<h2>Log In</h2>
+        <div class="form-group">
+            {{ render_field(form.email, class="form-control") }}
+        </div>
+        <div class="form-group">
+            {{ render_field(form.password, class="form-control") }}
+        </div>
+         <div class="form-group">
+        <a href="/reset_request">Forgot Password?</a>
+        </div>
+		<div class="form-group">
+            <input type="submit" value="Log In" class="btn btn-primary"/>
+        </div>
+        {{ error }}
+    </form>
+	<div class="text-center">Don't have an account? <a href="/createUser">Register Now</a></div>
+</div>
+
+{% endblock %}
+

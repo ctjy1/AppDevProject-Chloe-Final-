@@ -1,0 +1,44 @@
+{% extends "base_admin.html" %}
+{% block title %}RENTCYCLE - Create Product{% endblock %}
+
+{% block head %}
+{{ super() }}
+{% endblock %}
+
+{% block content %}
+{% from "includes/_formHelper.html" import render_field %}
+<link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/ProductForm.css')}}">
+<body>
+<div class="container con">
+    <h1 class="display-4">Create Product</h1>
+    <form method="POST" action="">
+        <div class="row">
+            <div class="column">
+                <div class="form-group">
+                {{ render_field(form.file, class="form-control", required=False) }}
+                </div>
+                <div class="form-group name">
+                    {{ render_field(form.product_name, class="form-control", placeholder="Please enter the product name", required=False) }}
+                </div>
+                <div class="form-group">
+                    {{ render_field(form.product_price, class="form-control", placeholder="Please enter price of product $/hr", required=False) }}
+                </div>
+                <div class="form-group">
+                    {{ render_field(form.product_status, class="form-control", required=False) }}
+                </div>
+                <div class="form-group">
+                    {{ render_field(form.product_amount, class="form-control", placeholder="Please enter the amount of products", required=False) }}
+                </div>
+                <div id="prof">
+                    <div class="form-group">
+                        {{ render_field(form.product_description, class="form-control") }}
+                    </div>
+                </div>
+                <input type="submit" value="Submit" class="btn btn-primary" id="submitButton">
+            </div>
+        </div>
+    </form>
+</div>
+</body>
+
+{% endblock %}

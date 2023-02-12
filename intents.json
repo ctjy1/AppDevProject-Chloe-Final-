@@ -1,0 +1,93 @@
+{
+  "intents": [
+    {
+      "tag": "greeting",
+      "patterns": [
+        "Hi",
+        "Hey",
+        "How are you",
+        "Is anyone there?",
+        "Hello",
+        "Good day"
+      ],
+      "responses": [
+        "Hey :-)",
+        "Hello, thanks for visiting",
+        "Hi there, what can I do for you?",
+        "Hi there, how can I help?"
+      ]
+    },
+    {
+      "tag": "goodbye",
+      "patterns": ["Bye", "See you later", "Goodbye"],
+      "responses": [
+        "See you later, thanks for visiting",
+        "Have a nice day",
+        "Bye! Come back again soon."
+      ]
+    },
+    {
+      "tag": "thanks",
+      "patterns": ["Thanks", "Thank you", "That's helpful", "Thank's a lot!"],
+      "responses": ["Happy to help!", "Any time!", "My pleasure"]
+    },
+    {
+      "tag": "rent",
+      "patterns": [
+        "Which bikes do you have?",
+        "What kinds of bikes do you rent?",
+        "What do you rent?"
+      ],
+      "responses": [
+        "We rent road , mountain, folding and hybrid bicycles.",
+        "We have road / mountain/ folding/ hybrid bicycles."
+      ]
+    },
+    {
+      "tag": "payments",
+      "patterns": [
+        "Do you take credit cards?",
+        "Do you accept Mastercard?",
+        "Can I pay with Paypal?",
+        "Are you cash only?"
+      ],
+      "responses": [
+        "We accept VISA, Mastercard and Paypal.",
+        "We accept most major credit cards, and Paypal."
+      ]
+    },
+    {
+      "tag": "delivery",
+      "patterns": [
+        "Do you do delivery?",
+        "How long does delivery take?",
+        "When do I get my delivery?"
+      ],
+      "responses": [
+        "Yes, we do provide delivery for a flat rate of $10. You are also able to self collect at the nearest branch near you for free.",
+        "Yes, we do provide delivery for a flat rate of $10. You are also able to self collect at the nearest branch near you."
+      ]
+    },
+    {"tag": "charges",
+      "patterns": [
+        "How much does rental for each bikes cost?",
+        "What are the charges?",
+        "How much is the rental"
+      ],
+      "responses": [
+        "Our charges are: \nRoad bike - $9/hr\nMountain bike - $10/hr \nFolding bike - $10/hr\nHybrid bike - $11/hr"
+      ]
+    },
+    {
+      "tag": "contact",
+      "patterns": [
+        "Contact please",
+        "How can I contact you?",
+        "What is your contact no?"
+      ],
+      "responses": [
+        "You may contact us at 68997123."
+      ]
+    }
+  ]
+}

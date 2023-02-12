@@ -1,0 +1,190 @@
+{% extends "base_admin.html" %}
+{% block title %}RENTCYCLE - Retrieve Products{% endblock %}
+
+{% block head %}
+{{ super() }}
+{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="{{url_for('static', filename='css/retrieveRental.css')}}">
+{% if 'product_created' in session %}
+<!--when submitted -->
+<div class="alert alert-success alert-dismissible">
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+    {{ session.pop('product_created', None) }} was created.
+</div>
+{% elif 'product_updated' in session %}
+<!-- after product updated -->
+<div class="alert alert-warning alert-dismissible">
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+    {{ session.pop('product_updated', None) }} was updated.
+</div>
+{% elif 'product_deleted' in session %}
+<!-- after product deleted-->
+<div class="alert alert-danger alert-dismissible">
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+    {{ session.pop('product_deleted', None) }} was deleted.
+</div>
+{% endif %}
+
+<body>
+<h1 class="display-4">Retrieve Products</h1>
+<div>
+    {% if count == 0 %}
+    <p>There are no products.</p>
+    {% elif count == 1 %}
+    <p>There is 1 product.</p>
+    {% else %}
+    <p>There are {{ count }} products.</p>
+    {% endif %}
+</div>
+<input type="text" id="searchInput" onkeyup="searchFunction()" placeholder="Search for product ID..." title="Type in a name">
+<div>
+    <table class="table table-hover table-dark" id="myTable">
+        <thead>
+        <tr class="table-info">
+            <th>Product Image</th>
+            <th>Product ID</th>
+            <th>Product Name</th>
+            <th>Product Price</th>
+            <th>Product Status</th>
+            <th>Product Amount</th>
+            <th>Product Description</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for product in products_list %}
+        <tr>
+            <td><img src="static/images/{{ product.get_file()}}" width="65" height="45"></td>
+            <td>{{ product.get_product_id() }}</td>
+            <td>{{ product.get_product_name() }}</td>
+            <td>${{ product.get_product_price() }}/hr</td>
+            <td>{{ product.get_product_status() }}</td>
+            <td>{{ product.get_product_amount() }}</td>
+            <td>{{ product.get_product_description() }}</td>
+            <td><a href="/updateProduct/{{product.get_product_id()}}" class="btn btn-outline-warning btn-lg">Update</a></td>
+            <td>
+                <form action="{{url_for('delete_product', id=product.get_product_id())}}" method="POST">
+                    <button type="button" class="btn btn-outline-danger btn-lg" data-bs-toggle="modal" data-bs-target="#myModal_{{product.get_product_id()}}">
+                        Delete
+                    </button>
+
+
+                    <div>
+
+<!-- The Modal -->
+                    <div class="modal fade" id="myModal_{{product.get_product_id()}}">
+                      <div class="modal-dialog" style="border: 5px solid #f73471; border-radius: 10px;">
+                        <div class="modal-content">
+
+                          <!-- Modal Header -->
+                          <div class="modal-header">
+                            <h4 class="modal-title">Delete Confirmation</h4>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                          </div>
+
+                          <!-- Modal body -->
+                          <div class="modal-body">
+                            Are you sure you want to delete the product "{{product.get_product_name()}}"?
+                          </div>
+
+                          <!-- Modal footer -->
+                          <div class="modal-footer">
+                              <input type="submit" value="Delete" class="btn btn-danger">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                          </div>
+
+                        </div>
+                      </div>
+                    </div>
+                        </div>
+                </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+ <script>
+function searchFunction() {
+  // Declare variables
+  var input, filter, table, tr, td, i, txtValue;
+  input = document.getElementById("searchInput");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("myTable");
+  tr = table.getElementsByTagName("tr");
+
+  // Loop through all table rows, and hide those who don't match the search query
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[1];
+    if (td) {
+      txtValue = td.textContent || td.innerText;
+      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }
+  }
+}
+
+function sortTable(n) {
+  var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+  table = document.getElementById("myTable");
+  switching = true;
+  //Set the sorting direction to ascending:
+  dir = "asc";
+  /*Make a loop that will continue until
+  no switching has been done:*/
+  while (switching) {
+    //start by saying: no switching is done:
+    switching = false;
+    rows = table.rows;
+    /*Loop through all table rows (except the
+    first, which contains table headers):*/
+    for (i = 1; i < (rows.length - 1); i++) {
+      //start by saying there should be no switching:
+      shouldSwitch = false;
+      /*Get the two elements you want to compare,
+      one from current row and one from the next:*/
+      x = rows[i].getElementsByTagName("TD")[n];
+      y = rows[i + 1].getElementsByTagName("TD")[n];
+      /*check if the two rows should switch place,
+      based on the direction, asc or desc:*/
+      if (dir == "asc") {
+        if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+          //if so, mark as a switch and break the loop:
+          shouldSwitch= true;
+          break;
+        }
+      } else if (dir == "desc") {
+        if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+          //if so, mark as a switch and break the loop:
+          shouldSwitch = true;
+          break;
+        }
+      }
+    }
+    if (shouldSwitch) {
+      /*If a switch has been marked, make the switch
+      and mark that a switch has been done:*/
+      rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+      switching = true;
+      //Each time a switch is done, increase this count by 1:
+      switchcount ++;
+    } else {
+      /*If no switching has been done AND the direction is "asc",
+      set the direction to "desc" and run the while loop again.*/
+      if (switchcount == 0 && dir == "asc") {
+        dir = "desc";
+        switching = true;
+      }
+    }
+  }
+}
+
+</script>
+
+
+</body>
+{% endblock %}

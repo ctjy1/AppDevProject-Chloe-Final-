@@ -1,0 +1,51 @@
+{% extends "base_logout.html" %}
+{% block title %}RENTCYCLE - Retrieve Products{% endblock %}
+
+{% block head %}
+{{ super() }}
+{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="{{url_for('static', filename='css/admin_viewProducts.css')}}">
+
+
+<body>
+
+<h1 class="display-4">Viewing Products</h1>
+<div>
+    {% if count == 0 %}
+    <p>There are no products.</p>
+    {% elif count == 1 %}
+    <p>There is 1 product.</p>
+    {% else %}
+    <p>There are {{ count }} bicycles.</p>
+    {% endif %}
+</div>
+<div class="viewpdts">
+
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th class="headerproducts">Bikes</th>
+            <th> </th>
+            <th>Price</th>
+            <th>Status</th>
+            <th>Description</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for product in products_list %}
+        <tr>
+            <td><img src="static/images/{{ product.get_file()}}" width="150" height="105"></td>
+            <td class="view_product_words">{{ product.get_product_name() }}</td>
+            <td class="view_product_words">${{ product.get_product_price() }} /hr</td>
+            <td class="view_product_words">{{ product.get_product_status() }}</td>
+            <td class="view_product_words">{{ product.get_product_description() }}</td>
+            <td><a href="/createRental" class="btn btn-warning">Rent</a></td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+</body>
+{% endblock %}

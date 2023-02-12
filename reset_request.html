@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block title %}RentCycle - Log In{% endblock %}
+
+{% block head %}
+{{ super() }}
+{% endblock %}
+
+{% block content %}
+{% from "includes/_formHelper.html" import render_field %}
+
+{% if 'email_sent' in session %}   <!-- Feedback After a Rental is Updated -->
+    <div class="alert alert-success alert-dismissible">
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+        {{ session.pop('email_sent', None) }}
+    </div>
+{% endif %}
+
+<link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/reset_request.css')}}">
+
+<div class="signup-form">
+
+    <form method="POST" action="">
+		<h2>Request Reset</h2>
+        <div class="form-group">
+            {{ render_field(form.email, class="form-control") }}
+        </div>
+
+		<div class="form-group">
+            <input type="submit" value="Submit" class="btn btn-primary"/>
+        </div>
+        {{ error }}
+    </form>
+
+{% endblock %}
+
+</div>

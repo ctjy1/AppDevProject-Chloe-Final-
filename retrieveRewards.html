@@ -1,0 +1,115 @@
+{% extends "base_admin.html" %}
+{% block title %}RentCycle - Retrieve Rewards{% endblock %}
+
+{% block head %}
+{{ super() }}
+{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="{{url_for('static', filename='css/retrieveRental.css')}}">
+    <div class="reward-div" id="reward-div">
+    <script type="text/javascript" src="{{ url_for('static', filename='js/close.js')}}"></script><!-- Feedback After a Reward is Created -->
+
+{% if 'reward_created' in session %}   <!-- Feedback After a Rental is Updated -->
+    <div class="alert alert-success alert-dismissible">
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+    {{ session.pop('reward_created', None) }} was created.
+    </div>
+{% elif 'reward_updated' in session %}   <!-- Feedback After a Rental is Deleted -->
+    <div class="alert alert-warning alert-dismissible">
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+        {{ session.pop('reward_updated', None) }} was updated.
+    </div>
+{% elif 'reward_deleted' in session %}   <!-- Feedback After a Rental is Deleted -->
+    <div class="alert alert-danger alert-dismissible">
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+        {{ session.pop('reward_deleted', None) }} was deleted.
+    </div>
+{% endif %}
+
+    </div>
+
+<body>
+<h1 class="display-4">Retrieve Rewards</h1>
+<div>
+    {% if count == 0 %}
+    <p>There are no rewards.</p>
+    {% elif count == 1 %}
+    <p>There is 1 reward.</p>
+    {% else %}
+    <p>There are {{ count }} rewards.</p>
+    {% endif %}
+</div>
+
+<script src="{{url_for('static', filename='js/retrieveRewards.js')}}"></script>
+<input type="text" id="searchInput" onkeyup="searchFunction()" placeholder="Search for rewards..." title="Type in a name">
+
+<div>
+    <table class="table table-hover table-dark" id="myTable">
+        <thead>
+        <tr class="table-info">
+            <th onclick="sortTable(0)">Reward ID <i class="fa-solid fa-sort"></i></th>
+                <th onclick="sortTable(1)">Reward Name <i class="fa-solid fa-sort"></i></th>
+                <th onclick="sortTable(2)">Discount Value<i class="fa-solid fa-sort"></i></th>
+                <th onclick="sortTable(3)">Points Required<i class="fa-solid fa-sort"></i></th>
+                <th onclick="sortTable(4)">Reward Expiry <i class="fa-solid fa-sort"></i></th>
+                <th>Remarks</th>
+            <tr>
+            </thead>
+
+<!--            <th>Reward ID</th>-->
+<!--            <th>Reward Name</th>-->
+<!--            <th>Discount Value</th>-->
+<!--            <th>Points Required</th>-->
+<!--            <th>Reward Expiry</th>-->
+<!--            <th>Remarks</th>-->
+<!--        </tr>-->
+<!--        </thead>-->
+        <tbody>
+        {% for reward in rewards_list %}
+        <tr>
+            <td>{{ reward.get_reward_id() }}</td>
+            <td>{{ reward.get_name() }}</td>
+            <td>{{ reward.get_discount() }}</td>
+            <td>{{ reward.get_points_required() }}</td>
+            <td>{{ reward.get_reward_expiry() }}</td>
+            <td>{{ reward.get_remarks() }}</td>
+            <td><a href="/updateReward/{{reward.get_reward_id()}}" class="btn btn-outline-warning btn-lg">Update</a></td>
+            <td>
+                <form action="{{url_for('delete_reward', id=reward.get_reward_id())}}" method="POST">
+                    <!-- <input type="submit" value="Delete" class="btn btn-danger" onclick="return confirm('Delete reward {{reward.get_name()}}?');">-->
+                    <!-- Button to Open the Modal -->
+                    <button type="button" class="btn btn-outline-danger btn-lg" data-bs-toggle="modal" data-bs-target="#myModal_{{reward.get_reward_id()}}">
+                        Delete
+                    </button>
+                    <!-- The Modal -->
+                    <div class="modal fade" id="myModal_{{reward.get_reward_id()}}">
+                        <div class="modal-dialog" style="border: 5px solid #f73471; border-radius: 10px;">
+                            <div class="modal-content">
+
+                                <!-- Modal Header -->
+                                <div class="modal-header">
+                                    <h4 class="modal-title">Confirm Deletion</h4>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                </div>
+                                <!-- Modal body -->
+                                <div class="modal-body">
+                                    Are you sure you want to delete reward "{{reward.get_name()}}"?
+                                </div>
+                                <!-- Modal footer -->
+                                <div class="modal-footer">
+                                    <input type="submit" value="Delete" class="btn btn-danger">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+</body>
+{% endblock %}

@@ -1,0 +1,48 @@
+{% extends "base_logout.html" %}
+{% block title %}RentCycle - Contact Us{% endblock %}
+
+{% block head %}
+{{ super() }}
+{% endblock %}
+
+{% block content %}
+{% from "includes/_formHelper.html" import render_field %}
+<link rel="stylesheet" href="{{url_for('static', filename='css/rentalForm.css')}}">
+<body>
+    <div class="container">
+        <h1 class="display-4">Contact Us</h1>
+        <form method="POST" action="">
+            <div class="row">
+                <div class="column">
+                    <div class="form-group">
+                        {{ render_field(form.First_Name, class="form-control") }}
+                    </div>
+                </div>
+                <div class="column">
+                    <div class="form-group">
+                        {{ render_field(form.Last_Name, class="form-control") }}
+                    </div>
+                </div>
+
+                <div class="column">
+                    <div class="form-group">
+                        {{ render_field(form.Email, class="form-control") }}
+                    </div>
+                </div>
+                <div class="column">
+                    <div class="form-group">
+                        {{ render_field(form.Phone_Number, class="form-control") }}
+                        <small>Eg. 8768 9752</small>
+                    </div>
+                </div>
+
+                <div class="form-group name">
+                    {{ render_field(form.Feedback, class="form-control", placeholder="Let us know what you need help with ") }}
+                </div>
+
+                <input type="submit" value="Complete Rental" class="btn btn-primary" id="completeButton">
+            </div>
+        </form>
+    </div>
+</body>
+{% endblock %}

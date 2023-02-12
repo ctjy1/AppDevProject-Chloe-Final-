@@ -1,0 +1,73 @@
+{% extends "base_admin.html" %}
+{% block title %}RENTCYCLE - View Products{% endblock %}
+
+{% block head %}
+{{ super() }}
+{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="{{url_for('static', filename='css/admin_viewProducts.css')}}">
+
+
+{% if 'product_created' in session %}
+<!-- when submitted -->
+<div class="alert alert-success alert-dismissible">
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+    {{ session.pop('product_created', None) }} was created.
+</div>
+{% elif 'product_updated' in session %}
+<!-- after product updated -->
+<div class="alert alert-warning alert-dismissible">
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+    {{ session.pop('product_updated', None) }} was updated.
+</div>
+{% elif 'product_deleted' in session %}
+<!-- after product deleted-->
+<div class="alert alert-danger alert-dismissible">
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+    {{ session.pop('product_deleted', None) }} was deleted.
+</div>
+{% endif %}
+
+
+
+<body>
+
+<h1 class="display-4">Viewing Products</h1>
+<div>
+    {% if count == 0 %}
+    <p>There are no products.</p>
+    {% elif count == 1 %}
+    <p>There is 1 product.</p>
+    {% else %}
+    <p>There are {{ count }} bicycles.</p>
+    {% endif %}
+</div>
+<div class="viewpdts">
+
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th class="headerproducts">Bikes</th>
+            <th> </th>
+            <th>Price</th>
+            <th>Status</th>
+            <th>Description</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for product in products_list %}
+        <tr>
+            <td><img src="static/images/{{ product.get_file()}}" width="150" height="105"></td>
+            <td class="view_product_words">{{ product.get_product_name() }}</td>
+            <td class="view_product_words">${{ product.get_product_price() }} /hr</td>
+            <td class="view_product_words">{{ product.get_product_status() }}</td>
+            <td class="view_product_words">{{ product.get_product_description() }}</td>
+            <td class="btn_vp"><a href="/retrieveProducts" class="btn btn-warning">Rent</a></td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+</body>
+{% endblock %}
